@@ -1,0 +1,794 @@
+<!doctype html>
+
+<!--
+
+IMPORTANT INSTRUCTIONS
+
+Do Not Modify Any HTML Tags or Style Sheet Elements
+Do Not create any new DIV tags
+
+The final report should be 2000-3000 words long
+
+Save your HTML file as <Project#>-<Group#>-Project-Title.html
+e.g. 13-31-Mining-Named-Entities.html
+
+
+You can use following tags:-
+> List Elements : ul/ol/li
+> Image : img
+> Content Elements : Span
+> Header Tags : H1, H2, H3, H4
+> Formatting Tags : b, i, u
+> Special Characters : &copy; &quot; etc
+
+To include mathematics, use other tools to create formulae and put the image here
+
+
+
+-->
+
+
+<html lang="en">
+<head>
+    <title> PERSONALITY RECOGNITION </title>
+    <link href="IRE2014styles.css" type="stylesheet" rel="stylesheet">
+<style>
+ul.a {list-style-type:circle;}
+ul.b {list-style-type:square;}
+ol.c {list-style-type:upper-roman;}
+ol.d {list-style-type:lower-alpha;}
+</style>
+</head>
+<body>
+    <div class="ire2014_container">
+    <h2 class="ire2014_h2">PERSONALITY RECOGNITION</h2>
+    <h4 class="ire2014_h4">Group Number : 9 | Project Number : 22 </h4>
+    <div class="ire2014_authors">
+        <div class="ire2014_authorname">
+            DHWANIT GUPTA (201001118) <br>
+            dhwanit.gupta@students.iiit.ac.in
+        </div>
+        
+        <div class="ire2014_authorname">
+            ARPIT SHARMA (201101020) <br>
+            arpit.sharma@students.iiit.ac.in
+        </div>
+
+        <div class="ire2014_authorname">
+            SINDHUSHA YADAVALLI (201305518) <br>
+            sindhusha.yadavalli@students.iiit.ac.in
+        </div>
+
+        <div class="ire2014_authorname">
+            CHARUDATT PACHORKAR (201307687) <br>
+            charudatt.p@research.iiit.ac.in
+        </div>
+
+    </div>
+    
+    <div class="ire2014_abstract"> <!--ABSTRACT HERE-->
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		Personality is one of the fundamental aspects, by which we can understand behavioral dispositions.
+	   It is evident that there is a strong correlation between users' personality and the way they behave on 
+	   online social network (e.g., Facebook).
+	   This paper presents automatic recognition of Big-5 personality traits on social network (Facebook) using users' status text.
+       Here we present a method for detecting personality trait of an individual based on the analysis of the content of their 
+       Facebook status updates.
+       Our model includes 2 different approaches for personality recognition namely "Feature based approach" 
+       and "Trigram based approach" and a comparitive study of the results obtained from 2 approaches.
+		
+
+    </div>
+    
+    <div class="ire2014_report">
+        <h3 class="ire2014_h3">1. Introduction</h3>
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        	For the natural and social interaction it is necessary to understand human behavior.
+        	Behavior involves an interaction between a person's underlying personality traits and situational variables. 
+        	The situation, that a person finds himself or herself in, plays a major role on his or her reaction. 
+        	However, in most of the cases, people respond with respect to their underlying personality traits,
+        	and gaining this insight of a web user's personality is very valuable for applications 
+        	that rely on personalisation such as: 
+			<ul>
+			<li> Recommender Systems</li> 
+			<li> Personalized Advertising </li>
+			<li> Online Marketing</li> 
+			<li> Sentiment Analysis/Opinion Mining </li>
+			<li> Deception Detection </li>
+			<li> Social Network Analysis</li> 
+			<li> and many others.</li>
+			</ul>
+        <br><br>
+        	There are several theories for personality traits in the literature but the most widely used 
+			personality traits model is the Big-5,.It describes the human personality as a vector of 
+			five values corresponding to bipolar traits. 
+			This is a popular model among the language and computer science researchers and it has been used as a framework for both personality traits identification and 
+			simulations. 
+			<br>The five big5 personality traits includes:</br> 
+			<ul>
+			<li>
+			<b>Extraversion</b>: (x/e)(sociable vs shy)This trait includes characteristics such as excitability, 
+			sociability, talkativeness, assertiveness and high amounts of emotional expressiveness. 
+			</li>
+			<li>
+			<b>Neuroticism</b>: (n)(neurotic vs calm)Individuals high in this trait tend to experienceemotional instability, anxiety, moodiness, irritability, and sadness.
+			</li>
+			<li>
+			<b>Agreeableness</b>:(a)(freindly vs uncooperative) This personality dimension includes 
+			attributes such as trust, altruism, kindness, affection, and other prosocial behaviors. 
+			</li>
+			<li>
+			<b>Conscientiousness</b>:(c)(organized vs careless) Common features of this dimension include 
+			high levels of thoughtfulness, with good impulse control and goal-directed behaviors. 
+			Those high in conscientiousness tend to be organized and mindful of details. 
+			</li>
+			<li>
+			<b>Openness</b>: (o)(insightful vs unimaginative) This trait features characteristics such as 
+			imagination and insight, and those high in this trait also tend to have a broad range of 
+			interests.
+			</li>
+			</ul>
+			Making use of the linguistic features associated with those classes, we generated different classifier for each class respectively.
+        
+        <h3 class="ire2014_h3">2. Related Work</h3>
+<p></p>			
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Many of the approaches for identifying personality have
+been through the analysis of the words an individual uses
+to express themselves. Researchers in automated personality identification have generally used the term linguistic style
+analysis to refer to analyzing an individual through analysis
+of their communications. In particular, these types of analyses look at distributions of different types of words. The
+Linguistic Inquiry and Word Count (LIWC; Pennebaker et
+al., 2007) dictionary is the most current set of categories.
+The dictionary provides lists of words that convey various
+psychological dimensions, such as words with positive emotional content or topics related to psychologically interesting phenomena.
+These types of analyses have demonstrated
+that it is possible to predict personality traits by looking at
+the distribution of the words used by individuals, for example the use of social language is 
+correlated with extraversion (Mehl, Gosling, and Pennebaker 2006). Classifiers built
+using these approaches have achieved results 3-10% above
+chance on a large corpus of narratives across the big-five
+factors (Mairesse et al. 2007).</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Alternatively, automated analysis can also be done by
+looking at an individual's behavior. This type of analysis
+has mostly focused around network metrics on twitter or
+Facebook. Users on these social-media sites are able to follow or friend other individuals (they automatically receive
+their news feeds). Individuals can also rebroadcast messages
+provided by their friends with or without their own comments. For example, Quercia et al. (2011) analyzed the 
+predictive accuracy of the personality of Twitter users based
+on network metrics. Quercia et al. showed a significant correlation between emotional stability and several of the network
+ metrics, in contrast to expert analysis of Facebook profiles which were not able to reveal tho</p>
+        
+        <h3 class="ire2014_h3">3. Approach</h3>
+        The two different approaches that we use for Personality Recognition are:
+        <ol>
+			<li>Feature Based Approach</li>
+			<li>Trigram Based Approach</li>
+        </ol>
+        	<b>3.1<u>Feature Based Approach</u></b><br>
+        	This approach involves the following steps
+        	<ul>
+<li>Feature Extraction</li>
+<li>Feature Vector Representaion</li>
+<li>Feature Vector Dimension Reduction</li>
+<li>Classification</li>       
+</ul>
+        	<b>3.1.1Feature Extraction</b>
+<ul>
+<li>Style based features Extraction</li>
+<li>Sentimental Analysis</li>
+<li>Identification of total no.of posts of author</li>
+<li>Concept Extraction</li>       
+</ul>
+<b>3.1.1.1<u> Style based features Extraction</u></b><br>
+	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;With the aim of modeling the style of writing, we considered readability features as well as the use of emoticons.
+	All these features are topic-independent.
+	 The complete set is described below. 
+	 Each item is a list of individual features represented by frequencies and combined into a vector space model.
+	 <br>
+<br><b>3.1.1.1.1Frequency of Part-of-speech(all 36)</b></br><br>
+<table border="1">
+  <tr>
+        <th>S.No</th>
+            <th>Representation</th>
+            <th>Expansion</th>
+  </tr>
+  <tr>
+            <td>1.</td>
+            <td>CC</td>
+        <td>Coordinating conjunction</td>
+  </tr>
+ <tr>
+            <td>2.</td>
+            <td>CD</td>
+        <td>Cardinal number</td>
+  </tr>
+<tr>
+            <td>3.</td>
+            <td>DT</td>
+        <td>Determiner</td>
+  </tr>
+<tr>
+            <td>4.</td>
+            <td>EX</td>
+        <td>Existential there</td>
+  </tr>
+<tr>
+            <td>5.</td>
+            <td>FW</td>
+        <td>Foreign word</td>
+  </tr>
+<tr>
+            <td>6.</td>
+            <td>IN</td>
+        <td>Preposition or subordinating conjunction</td>
+  </tr>
+<tr>
+            <td>7.</td>
+            <td>JJ</td>
+        <td>Adjective</td>
+  </tr>
+<tr>
+            <td>8.</td>
+            <td>JJR</td>
+        <td>Adjective, comparative</td>
+  </tr>
+<tr>
+            <td>9.</td>
+            <td>JJS</td>
+        <td>Adjective, superlative</td>
+  </tr>
+<tr>
+            <td>10.</td>
+            <td>LS</td>
+        <td>List item marker</td>
+  </tr>
+<tr>
+            <td>11.</td>
+            <td>MD</td>
+        <td>Modal</td>
+  </tr>
+<tr>
+            <td>12.</td>
+            <td>NN</td>
+        <td>Noun, singular or mass</td>
+  </tr>
+<tr>
+            <td>13.</td>
+            <td>NNS</td>
+        <td>Noun, plural</td>
+  </tr>
+<tr>
+            <td>14.</td>
+            <td>NNP</td>
+        <td>Proper noun, singular</td>
+  </tr>
+<tr>
+            <td>15.</td>
+            <td>NNPS</td>
+        <td>Proper noun, plural</td>
+  </tr>
+<tr>
+            <td>16.</td>
+            <td>PDT</td>
+        <td>Predeterminer</td>
+  </tr>
+<tr>
+            <td>17.</td>
+            <td>POS</td>
+        <td>Possessive ending</td>
+  </tr>
+<tr>
+            <td>18.</td>
+            <td>PRP</td>
+        <td>Personal pronoun</td>
+  </tr>
+<tr>
+            <td>19.</td>
+            <td>PRPS</td>
+        <td>Possessive pronoun</td>
+  </tr>
+<tr>
+            <td>20.</td>
+            <td>RB</td>
+        <td>Adverb</td>
+  </tr>
+<tr>
+            <td>21.</td>
+            <td>RBR</td>
+        <td>Adverb, comparative</td>
+  </tr>
+<tr>
+            <td>22.</td>
+            <td>RBS</td>
+        <td>Adverb, superlative</td>
+  </tr>
+<tr>
+            <td>23.</td>
+            <td>RP</td>
+        <td>Particle</td>
+  </tr>
+<tr>
+            <td>24.</td>
+            <td>SYM</td>
+        <td>Symbol</td>
+  </tr>
+<tr>
+            <td>25.</td>
+            <td>TO</td>
+        <td>to</td>
+  </tr>
+<tr>
+            <td>26.</td>
+            <td>UH</td>
+        <td>Interjection</td>
+  </tr>
+<tr>
+            <td>27.</td>
+            <td>VB</td>
+        <td>Verb, base form</td>
+  </tr>
+<tr>
+            <td>28.</td>
+            <td>VBD</td>
+        <td>Verb, past tense</td>
+  </tr>
+<tr>
+            <td>29.</td>
+            <td>VBG</td>
+        <td>Verb, gerund or present participle</td>
+  </tr>
+<tr>
+            <td>30.</td>
+            <td>VBN</td>
+        <td>Verb, past participle</td>
+  </tr>
+<tr>
+            <td>31.</td>
+            <td>VBP</td>
+        <td>Verb, non-3rd person singular present</td>
+  </tr>
+<tr>
+            <td>32.</td>
+            <td>VBZ</td>
+        <td>Verb, 3rd person singular present</td>
+  </tr>
+<tr>
+            <td>33.</td>
+            <td>WDT</td>
+        <td>Wh-determiner</td>
+  </tr>
+<tr>
+            <td>34.</td>
+            <td>WP</td>
+        <td>Wh-pronoun</td>
+  </tr>
+<tr>
+            <td>35.</td>
+            <td>WP$</td>
+        <td>Possessive wh-pronoun</td>
+  </tr>
+<tr>
+            <td>36.</td>
+            <td>WRB</td>
+        <td>Wh-adverb</td>
+  </tr>
+
+
+</table>
+<br><b>3.1.1.1.2 Frequency of Special Symbols</b></br>
+<br><b>3.1.1.1.3 Frequency of :</b></br>
+<ul>
+<li>1PS - First Person Singular</li>
+<li>1PP - First Person Plural</li>
+<li>2P  - Second Person</li>
+<li>3PS - Third Person Singular</li>
+<li>3PP - Third Person Plural</li>
+</ul>
+<b>3.1.1.1.4 Frequency of Emoticons of:</b></br>
+<ul>
+<li>anger</li>
+<li>disgust</li>
+<li>fear</li>
+<li>happy</li>
+<li>sad </li>
+<li>surprise</li>
+</ul>
+<b>3.1.1.1.5. other features like: </b><br>
+<ul>
+	<li>Avg length of status</li>
+	<li>Punctuations count</li>
+    <li>unique words/total words</li>
+    <li>ratio of upper case words</li>
+    <li>ratio of upper case letters</li>
+    
+  </ul>
+
+<br><b>3.1.1.1.6.Frequency of Health Related words</b> </br>
+<br/>
+<b>3.1.1.2<u> Sentiment Analysis</u></b>
+<br> &nbsp;&nbsp;&nbsp;includes the extraction of  positive,negative and neutral percentage of emotions of each status update  from <a href="http://text-processing.com/api/sentiment/">http://text-processing.com/api/sentiment/</a>
+ and get average value of it for each user.<br>
+</br><u>Basic Definitions:</u>
+<br><i>Sentiment:</i>
+    A thought, view, or attitude, especially one  based mainly on emotion instead of reason
+</br><br><i>Sentiment Analysis:</i>
+     aka opinion mining.Sentiment Analysis is the use of natural language processing (NLP) and  computational techniques to automate the  extraction or classification of sentiment from  typically unstructured text.
+</br>
+<br><b><u>3.1.1.3 Concept Extraction:</u></b></br>
+      &nbsp;&nbsp;&nbsp;From the linguistic aspect, we usually say that the main 'building blocks' of a sentence are 
+      Noun Phrases (NP) and Verb Phrases (VP).  
+      The Noun Phrases are usually the topics or objects in the sentence, or in simple words this is 
+      what the sentence is talking about, while Verb Phrases describe some action between the objects in the sentence.
+      <br><u>Example:</u>
+
+<br>'Facebook acquired Instagram'</br>
+ 
+<i>About Who/What? </i> Facebook and Instagram - Noun Phrases
+<br><i>What happened?  </i>acquired (=acquisition) - Verb Phrase</br>
+     &nbsp;&nbsp;&nbsp;Here we extract only the Noun Phrases from the sentence and get average value of concepts that person 
+     talking about in his statuses. 
+     And for Identifying concept  we define some simple patterns which describe the structure of a Noun Phrase, for example:
+<ul>
+<li>NN = content</li>
+<li>JJ+NN = visual content</li>
+<li>NN+NN = content marketing</li>
+</ul>
+<br><b><u>3.1.1.4 Social Networking Features:</u></b></br>
+
+     Given in facebook dataset and those include the following:
+<br/>
+<br/>
+<table border="1">
+  <tr>
+            <td>1.</td>
+            <td>Network_size</td>
+        <td>Network size is the total number of people in the egocentric network including ego.</td>
+  </tr>
+ <tr>
+            <td>2.</td>
+            <td>betweenness</td>
+        <td>Ego betweenness centrality of an ego can be defined as the extent to which an ego lies between alters within the network (Freeman, 1979). Ego betweenness is high when alters are not well interconnected, and thus many of the shortest paths run trough ego.</td>
+  </tr>
+<tr>
+            <td>3.</td>
+            <td>n_betweenness</td>
+        <td>As ego betweenness is related to the size of the network, it should be normalized in order to allow for comparisons between egocentric networks of different size. Normalization used here involves dividing betweenness by number of all possible pairs between alters (this method is also employed in UCInet package) (add graph showing the relation between betweenness and size and normalized betweenness and size)</td>
+  </tr>
+<tr>
+            <td>4.</td>
+            <td>Density</td>
+        <td>Density indicates how many connections (edges) are there between alters as compared to the maximum possible number of edges. For an undirected egocentric graph it is calculated by dividing total number of (edges) by maximum possible number of edges. Density score here can be slightly different from one provided by UCInet as it is being calculated for the whole ego network including ego (as opposed to calculating density in the egocentric network with ego removed as it is being done in UCInet).</td>
+  </tr>
+<tr>
+            <td>5.</td>
+            <td>brokerage</td>
+        <td>Is the number of alters' pairs that are not directly connected.</td>
+  </tr>
+<tr>
+            <td>6.</td>
+            <td>nbrokerage</td>
+        <td>As brokerage also depend on the size of the network, it is being normalized by dividing it by the number of all possible pairs between alters</td>
+  </tr>
+
+
+</table>
+<br/>
+<b>3.1.2 Feature Representation</b><br>
+After Extraction of all the above featueres ,we are going to represent  
+the given user as a vector of above features and trained 5 different classifiers 
+for different personality traits using Gaussian Naive Bayesian classification.<br>
+
+<br><b><u>3.1.3 & 3.1.4 Feature Dimension Reducation and Classification</u></b></br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;We used Gaussian Naive Bayesian model for the classification of given dataset. 
+        <i>(Since Bayesian model works fine for small data set,
+        and as our dataset is small of 250 Facebook users only)</i>
+
+       
+         Bayesian classification  works fine only with limited number of features,and hence we try to reduce no.of dimensions
+          of feature vector  using correlation coefficient clustering in removing similar/redundant features from the concept proposed in <b>'Feature Selection via Correlation Coefficient Clustering'</b> by Hui-Huang Hsu and Cheng-Wei Hsieh, where the concpet includes:
+<br/>
+<br><b><u>Feature Selection via Correlation Coefficient Clustering</u></b></br>
+       &nbsp;&nbsp;&nbsp;&nbsp; For hundreds or even thousands of collected features, there must be features that are very similar to each other(where similarity is identified by the absolute value of correlation coefficient), and we can take these features as the same kind of features. We certainly do not need to use all features of the same kind for classification. After clustering analysis identifies all different kinds of features, we can remove a great number of redundant features. The classification performance in both the computational speed and the classification accuracy can be improved with the removal of these redundant features.And uses k-means algorithm with no.of clusters as 25 to cluster the features based on absolute value of correlation coefficent.
+<br/>
+<br><b><u>3.2Trigram based approach</u></b></br>
+	This approach includes the generation of  two features (say F1 and F2)for each user status,Where "F1" represents normalized frequency of trigrams w.r.t to current personality trait and "F2" represents normalized frequency of trigrams w.r.t remaining classes 
+<br/><u><i>Proceducre:</i></u>
+<dl class="b">
+<dt>Step-1:</dt>
+<dd>Identify all possible trigrams w.r.t to individual personality trait </dd>
+<dt>Step-2:</dt>
+<dd>Iterate through individual status , identify all trigrams of respective status and compare 
+it with the trigram set of "respective personality trait" 
+and "trigrams sets of all the remaining personality traits" and increament the count F1 and F2 accordingly.</dd>
+<dt>Step-3:</dt>
+<dd>Normalize F1 and F2 (by dividing it with the count of trigrams in respective status)</dd>
+<dt>Step-4:</dt>
+<dd>Represent the given dataset in feature vector form  (F1,F2) 
+and train each personality trait to different classifier using SVM to produce 5 different classifiers.</dd>
+</dl>
+    <h4 class="ire2014_h4">3.3. Architecture</h4>
+        <figure class="ire2014_imgright">
+            <img src="22-9-images/approach1.jpg" width="400px" height="300px">
+            <figcaption>Feature based approach</figcaption>
+        </figure>
+<br/>        Fig 1 represent the schematic view of "feature based approach" with 4 main steps as follows:
+<ul class="a">
+<li>Feature Extraction<br/> 
+  extract the required features as mentioned in "part-3(Approach)" for the given data set
+</li><li>Feature Vectore representation <br/>
+   represent the given data set as feature vector
+</li><li>Fetature vectore dimension reduction <br/> 
+   using  coorrelation coefficient clustering
+</li><li>Classification <br/>
+   using Bayesian classifier
+</li>
+</ul>
+        <h4 class="ire2014_h4">3.4. Theory</h4>
+Corpus for Personality Recognition includes: <br/>
+<b>1.mypersonality.csv</b>
+<ul class="b">
+<li>Includes author ids, Facebook statuses in raw text, gold standard labels (both classes and 
+scores) and several social network measures like network size, betweenness, density, 
+brokerage etc...</li> 
+<li>Texts have been originally collected by David Stillwell and Michal Kosinski, and 
+anonymized by Fabio Celli.</li>
+<li>Each proper name of person has been replaced with a *PROPNAME* string. Famous 
+names, such as "Chopin" and "Mozart", and locations, such as "New York" and "Mexico", 
+have not been replaced.</li> 
+</ul>
+<u>Some more Statistics of Facebook Data(mypersonality.csv): </u><br/>
+<ul class="c">
+<li>	 
+ The data was collected from 250 different users and the number of statuses per user 
+ranges from 1 to 223.</li> 
+ <li>From the corpus analysis, it is observed that besides words, it contains tokens such as 
+internet-slang (e.g. WTF-what the F***), emoticons (e.g., :-D), acronyms (e.g., BRB-be 
+right back) and various shorthand notations that people use in their status. </li>
+<li> With splitting of 66%(train data) and 34%(test data) the statistics of mypersonality.csv are 
+as follows: 
+<ul>
+<li>	 In total there are 6,545 train and 3,372 test instances after the split. </li>
+ <li>The maximum number of tokens per user status message is 89, </li>
+ <li>minimum 1 and </li>
+ <li>the average is 14.</li>
+ </ul>
+ </li>       
+  </ul> 
+  <b>2.essays.csv</b>
+  <ul>
+<li> includes authors, raw text and gold standard labels (classes only).</li>
+<li>Consists of 2469 essays(1.9 million words) by psychology students.</li>
+<li>Texts has been originally collected by James Pennebaker, labels are derived by z-scores
+computed by Francois Mairesse and converted from scores to nominal scales by Fabio Celli</li>
+</ul>
+        <h3 class="ire2014_h3">4. Evaluation and Results</h3>
+        In the shared task guidelines it is suggeste to use precision,recall,FI as evaluation metrics. <br/>
+<b>Explanation:</b><br/> 
+To calculate precision,recall and F-Score requires confusion matrix which is explained as follows: <br>
+A confusion matrix (Kohavi and Provost, 1998) contains information about actual and 
+predicted classifications done by a classification system. 
+Performance of such systems is commonly evaluated using the data in the matrix.
+<br/>
+<br/>
+<table border="1">
+	<tr>
+		<th colspan="2"></th>
+		
+		<th colspan="2">Predicted</th>
+	</tr>
+	<tr>
+		<th colspan="2"></th>
+		<th>Negative</th>
+		<th>Positive</th>
+	</tr>
+	<tr>
+		<td rowspan="2">Actual</td>
+		<td>Negative</td>
+		<td>a</td>
+		<td>b</td>
+	</tr>
+	<tr>
+		
+		<td>positive</td>
+		<td>c</td>
+		<td>d</td>
+	</tr>
+</table>
+The entries in the confusion matrix have the following meaning in the context of our study: <br/>
+<ul class="a">
+<li>a is the number of correct predictions that an instance is negative, </li>
+<li>b is the number of incorrect predictions that an instance is positive, </li>
+<li>c is the number of incorrect of predictions that an instance negative, and </li>
+<li>d is the number of correct predictions that an instance is positive.</li>
+</ul>        
+  
+Several standard terms have been defined for the 2 class matrix:<br/>
+<ul class="b">
+<li>The accuracy (AC) is the proportion of the total number of predictions that were correct. It is determined using the equation: 
+<br/><b>AC=(a+d)/(a+b+c+d)</b></li>
+<li>The recall or true positive rate (TP) is the proportion of positive cases that were correctly identified, as calculated using the equation: </li>
+<br/><b>           True Positive Rate(TP) or recall=d/c+d</b>
+<li>The false positive rate (FP) is the proportion of negatives cases that were incorrectly classified as positive, as calculated usingthe equation: </li>
+<br/><b>False Positive Rate(FP)= b/a+b </b>
+<li>The true negative rate (TN) is defined as the proportion of negatives cases that were classified correctly, as calculated using the equation: </li>
+<br/><b>True Negative Rate(TN)= a/a+b</b>
+<li>The false negative rate (FN) is the proportion of positives cases that were incorrectly classified as negative, as calculated using the equation: </li>
+<br/><b>False Negative Rate=c/c+d</b>
+<li>Finally, precision (P) is the proportion of the predicted positive cases that were correct, as calculated using the equation: </li>
+<br/><b>     Precision=d/b+d</b>
+<li><br/><b>F-score=2 (precision*recall/(precision+recall))</b></li>
+<br/><b><u>Obtained Values:</u></b> 
+
+<table border="1">
+  <tr>
+        <th>Personality Trait</th>
+        <th>a</th>
+        <th>b</th>
+        <th>c</th>
+        <th>d</th>
+  </tr>
+  <tr>
+        <td>Extraversion</td>
+        <td>31</td>
+        <td>0</td>
+        <td>13</td>
+        <td>5</td>
+  </tr>
+  <tr>
+        <td>Openness</td>
+        <td>0</td>
+        <td>15</td>
+        <td>0</td>
+        <td>34</td>
+  </tr>
+  <tr>
+        <td>Neuroticism</td>
+        <td>15</td>
+        <td>8</td>
+        <td>11</td>
+        <td>15</td>
+  </tr>
+  <tr>
+        <td>Agreeableness</td>
+        <td>9</td>
+        <td>16</td>
+        <td>4</td>
+        <td>20</td>
+  </tr>
+  <tr>
+        <td>Conscientiousness</td>
+        <td>2</td>
+        <td>22</td>
+        <td>0</td>
+        <td>25</td>
+  </tr>
+
+
+</table>
+<br/>
+<b><u>Calculate Measures</u></b>
+<br/>
+
+<table border="1">
+  <tr>
+        <th>Personality Trait</th>
+        <th>Accuracy</th>
+        <th>True Positive Rate(TP)Recall</th>
+        <th>False positive Rate(FP)</th>
+        <th>True Negative Rate(TN)</th>
+        <th>False Negative Rate</th>
+        <th>Precision</th>
+        <th>F-score</th>
+        <th>Trigram Accuracy</th>
+  </tr>
+  <tr>
+        <td>Extraversion</td>
+        <td>74%</td>
+        <td>0.28</td>
+        <td>0</td>
+        <td>1</td>
+        <td>0.72</td>
+        <td>1</td>
+        <td>0.44</td>
+        <td>41.17%</td>
+  </tr>
+  <tr>
+        <td>Openness</td>
+        <td>70%</td>
+        <td>1</td>
+        <td>1</td>
+        <td>0</td>
+        <td>0</td>
+        <td>0.695</td>
+        <td>0.82</td>
+        <td>70.58%</td>
+  </tr>
+  <tr>
+        <td>Neuroticism</td>
+        <td>62%</td>
+        <td>0.577</td>
+        <td>0.348</td>
+        <td>0.652</td>
+        <td>0.407</td>
+        <td>0.652</td>
+        <td>0.613</td>
+        <td>43.13%</td>
+  </tr>
+  <tr>
+        <td>Agreeableness</td>
+        <td>60%</td>
+        <td>0.833</td>
+        <td>0.64</td>
+        <td>0.36</td>
+        <td>0.166</td>
+        <td>0.5555</td>
+        <td>0.667</td>
+        <td>58.82%</td>
+  </tr>
+  <tr>
+        <td>Conscientiousness</td>
+        <td>56%</td>
+        <td>1</td>
+        <td>0.9166</td>
+        <td>0.833</td>
+        <td>0</td>
+        <td>0.532</td>
+        <td>0.695</td>
+        <td>50.98%</td>
+  </tr>
+
+
+</table>  
+	
+        
+        <h3 class="ire2014_h3">5. Conclusion</h3>
+The result shows that the style based features gives better results over trigram approach for personality recognition,and from the results of the above approaches it can be shown that there is proper mapping between vocabulary that the person use(say in his status) and his underlying personality.
+        
+        <div class="ire2014_ref">
+            <h3 class="ire2014_h3">References</h3>
+            <ol>
+                <li><a href='http://clic.cimec.unitn.it/fabio/wcpr13/celli_wcpr13.pdf' >http://clic.cimec.unitn.it/fabio/wcpr13/celli_wcpr13.pdf </a></li>
+                <li><a href='http://clic.cimec.unitn.it/fabio/wcpr13/verhoeven_wcpr13.pdf' >http://clic.cimec.unitn.it/fabio/wcpr13/verhoeven_wcpr13.pdf</a></li>
+                <li><a href='http://clic.cimec.unitn.it/fabio/wcpr13/farnadi_wcpr13.pdf' >http://clic.cimec.unitn.it/fabio/wcpr13/farnadi_wcpr13.pdf</a></li>
+                <li><a href='http://clic.cimec.unitn.it/fabio/wcpr13/
+tomlinson_wcpr13.pdf' >http://clic.cimec.unitn.it/fabio/wcpr13/
+tomlinson_wcpr13.pdf </a></li>
+                <li><a href='http://clic.cimec.unitn.it/fabio/wcpr13/
+markovikj_wcpr13.pdf6.' >http://clic.cimec.unitn.it/fabio/wcpr13/
+markovikj_wcpr13.pdf6. </a></li>
+                <li><a href='http://clic.cimec.unitn.it/fabio/wcpr13/
+alam_wcpr13.pdf' >http://clic.cimec.unitn.it/fabio/wcpr13/
+alam_wcpr13.pdf </a></li>
+                <li><a href='http://clic.cimec.unitn.it/fabio/wcpr13/
+mohammad_wcpr13.pdf' >http://clic.cimec.unitn.it/fabio/wcpr13/
+mohammad_wcpr13.pdf </a></li>
+                <li><a href='http://clic.cimec.unitn.it/fabio/wcpr13/
+appling_wcpr13.pdf' >http://clic.cimec.unitn.it/fabio/wcpr13/
+appling_wcpr13.pdf </a></li>
+                <li><a href='http://clic.cimec.unitn.it/fabio/wcpr13/
+iacobelli_wcpr13.pdf' >http://clic.cimec.unitn.it/fabio/wcpr13/
+iacobelli_wcpr13.pdf </a></li>
+                 <li><a href='http://ceur-ws.org/Vol-1096/paper3.pdf' >http://ceur-ws.org/Vol-1096/paper3.pdf</a></li>
+
+<li> Koppel, M., Argamon, S., Shimoni, A.: Automatically categorizing written texts
+by author gender. Literay and Linguistic Computing 17 (4), 401-412 (2003)</li>
+                </ol>
+        </div>
+        
+        <div class="ire2014_resources">
+            <h3 class="ire2014_h3">Resources</h3>
+            <h4>Code Base</h4>
+            <a href="#" class="ire2014_link">Github Repository for Project ABC</a>
+            
+            <h4>Slide Show</h4>
+            <a href="#" class="ire2014_link">Put Slideshare Link</a>
+            
+            <h4>Video</h4>
+            <a href="#" class="ire2014_link">Put Youtube Demo Link</a>
+        </div>
+        
+    </div>
+    
+    </div>
+</body>
+</html>
